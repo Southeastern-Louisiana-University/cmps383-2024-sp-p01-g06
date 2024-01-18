@@ -5,10 +5,10 @@ namespace Selu383.SP24.Api.Controllers
 {
     [ApiController]
     [Route("/api/hotels")]
-    public class HotelController
+    public class HotelController : ControllerBase
     {
         [HttpGet]
-        public int Get()
+        public int HotelGet()
         {
             return 5;
         }
