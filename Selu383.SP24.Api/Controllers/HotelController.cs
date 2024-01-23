@@ -14,6 +14,11 @@ namespace Selu383.SP24.Api.Controllers
         private readonly DbSet<Hotel> hotels;
         private readonly DataContext dataContext;
 
+        public HotelController(DbSet<Hotel> hotels, DataContext dataContext)
+        {
+            this.hotels = hotels;
+            this.dataContext = dataContext;
+        }
 
         [HttpGet]
         [Route("/{Id}")]
