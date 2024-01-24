@@ -80,7 +80,7 @@ namespace Selu383.SP24.Api.Controllers
 
         }
 
-        [HttpDelete]//TODO
+        [HttpDelete]
         [Route("{Id}")]
         public ActionResult<HotelDto> HotelDelete(int Id)
         {
@@ -106,6 +106,17 @@ namespace Selu383.SP24.Api.Controllers
         [Route("{Id}")]
         public ActionResult<HotelDto> HotelChange(HotelDto dto, int Id)
         {
+
+            if ((dto.Name.Length > 120) || (dto.Name.Length == 0))
+            {
+                return BadRequest();
+            }
+
+            if (dto.Address.Length == 0)
+            {
+                return BadRequest();
+            }
+
 
             var Hotel = HotelsList.FirstOrDefault(x => x.Id == Id);
             if (Hotel == null)
