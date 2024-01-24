@@ -4,8 +4,8 @@ using Selu383.SP24.Api.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<DataContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DataContext")));
+//builder.Services.AddDbContext<DataContext>(options =>
+//options.UseSqlServer(builder.Configuration.GetConnectionString("DataContext")));
 
 
 builder.Services.AddControllers();
