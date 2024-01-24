@@ -15,9 +15,9 @@ namespace Selu383.SP24.Api.Controllers
 
         //private readonly DbSet<Hotel> hotels;
         //private readonly DataContext dataContext;
-        //private readonly ILogger<WeatherForecastController> _logger;
+        //private readonly ILogger<HotelController> _logger;
 
-        //public HotelController(DbSet<Hotel> hotels, DataContext dataContext, ILogger<WeatherForecastController> logger)
+        //public HotelController(DbSet<Hotel> hotels, DataContext dataContext, ILogger<HotelController> logger)
         //{
         //    this.hotels = hotels;
         //    this.dataContext = dataContext;
