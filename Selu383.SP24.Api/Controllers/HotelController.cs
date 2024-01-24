@@ -2,6 +2,7 @@
 using Selu383.SP24.Api.Entities;
 using Selu383.SP24.Api.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 
 namespace Selu383.SP24.Api.Controllers
@@ -44,6 +45,16 @@ namespace Selu383.SP24.Api.Controllers
         [HttpPost]
         public ActionResult<HotelDto> HotelCreate(HotelDto dto)
         {
+
+            if ((dto.Name.Length > 120) || (dto.Name.Length == 0)) { 
+                return BadRequest();
+            }
+
+            if (dto.Address.Length == 0) {
+                return BadRequest();
+            }
+
+
             var newHotel = new Hotel();
             newHotel.Name = dto.Name;
             newHotel.Address = dto.Address;
@@ -65,7 +76,7 @@ namespace Selu383.SP24.Api.Controllers
 
             dto.Id = newHotel.Id;
 
-            return dto;
+            return new ObjectResult(dto) { StatusCode = StatusCodes.Status201Created };
 
         }
 
