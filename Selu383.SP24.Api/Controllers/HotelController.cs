@@ -48,7 +48,16 @@ namespace Selu383.SP24.Api.Controllers
             newHotel.Name = dto.Name;
             newHotel.Address = dto.Address;
 
-            newHotel.Id = dto.Id;
+           var last = HotelsList.LastOrDefault();
+
+            if (last == null)
+            {
+                newHotel.Id = 0;
+            }
+            else
+            {
+                newHotel.Id = last.Id + 1;
+            }
 
             HotelsList.Add(newHotel);
 
@@ -64,8 +73,22 @@ namespace Selu383.SP24.Api.Controllers
         [Route("{Id}")]
         public ActionResult<HotelDto> HotelDelete(int Id)
         {
+            var HotelToRemove = HotelsList.FirstOrDefault(x => x.Id == Id);
+            if (HotelToRemove == null)
+            {
+                return NotFound();
+            }
 
-            return StatusCode(500);
+            HotelsList.Remove(HotelToRemove);
+
+            HotelDto dto = new HotelDto() { 
+                Id = HotelToRemove.Id, 
+                Name = HotelToRemove.Name, 
+                Address = HotelToRemove.Address 
+            };
+
+
+            return dto;
         }
 
         [HttpPut]
