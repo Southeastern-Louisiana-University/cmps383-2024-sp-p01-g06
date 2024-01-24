@@ -12,23 +12,23 @@ namespace Selu383.SP24.Api.Entities
         public string Address { get; set; } = string.Empty;
     }
 
-    //public class HotelInformation : IEntityTypeConfiguration<Hotel> {
-    //    public void Configure(EntityTypeBuilder<Hotel> builder)
-      //  {
-        //    builder
-          //      .Property(x => x.Name)
-            //    .HasMaxLength(120)
-              //  .IsRequired();
+    public class HotelInformation : IEntityTypeConfiguration<Hotel> {
+        public void Configure(EntityTypeBuilder<Hotel> builder)
+        {
+            builder
+                .Property(x => x.Name)
+                .HasMaxLength(120)
+                .IsRequired();
 
-            //builder
-              //  .Property(x => x.Address)
-                //.IsRequired();
+            builder
+                .Property(x => x.Address)
+                .IsRequired();
 
-            //builder
-              //  .HasKey(x => x.Id);
+            builder
+                .HasKey(x => x.Id);
 
-        //}
-    //}
+        }
+    }
 
     public class HotelDto
     {

@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Selu383.SP24.Api.Data;
+using Selu383.SP24.Api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddDbContext<DataContext>(options =>
-//options.UseSqlServer(builder.Configuration.GetConnectionString("DataContext")));
+builder.Services.AddDbContext<DataContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DataContext")));
 
 
 builder.Services.AddControllers();
@@ -16,6 +17,13 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
+}
 
 
 

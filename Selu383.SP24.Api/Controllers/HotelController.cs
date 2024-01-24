@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Selu383.SP24.Api.Entities;
+using System.ComponentModel.DataAnnotations;
 using Selu383.SP24.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -13,16 +14,16 @@ namespace Selu383.SP24.Api.Controllers
     {
         static List<Hotel> HotelsList = new List<Hotel>();
 
-        //private readonly DbSet<Hotel> hotels;
-        //private readonly DataContext dataContext;
-        //private readonly ILogger<HotelController> _logger;
+        private readonly DbSet<Hotel> hotels;
+        private readonly DataContext dataContext;
+        private readonly ILogger<HotelController> _logger;
 
-        //public HotelController(DbSet<Hotel> hotels, DataContext dataContext, ILogger<HotelController> logger)
-        //{
-        //    this.hotels = hotels;
-        //    this.dataContext = dataContext;
-        //    _logger = logger;
-        //}
+        public HotelController(DbSet<Hotel> hotels, DataContext dataContext, ILogger<HotelController> logger)
+        {
+            this.hotels = hotels;
+            this.dataContext = dataContext;
+            _logger = logger;
+        }
 
         [HttpGet]
         [Route("{Id}")]
