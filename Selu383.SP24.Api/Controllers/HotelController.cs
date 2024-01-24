@@ -64,16 +64,28 @@ namespace Selu383.SP24.Api.Controllers
         [Route("{Id}")]
         public ActionResult<HotelDto> HotelDelete(int Id)
         {
-            return StatusCode(500);
 
+            return StatusCode(500);
         }
 
         [HttpPut]
         [Route("{Id}")]
         public ActionResult<HotelDto> HotelChange(HotelDto dto, int Id)
         {
-            return StatusCode(500);
 
+            var Hotel = HotelsList.FirstOrDefault(x => x.Id == Id);
+            if (Hotel == null)
+            {
+                return NotFound();
+            }
+
+            Hotel.Name = dto.Name;
+            Hotel.Address = dto.Address;
+
+            
+
+            dto.Id = Id;
+            return dto;
 
         }
     }
