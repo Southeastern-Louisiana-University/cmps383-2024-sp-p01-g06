@@ -59,20 +59,8 @@ namespace Selu383.SP24.Api.Controllers
             newHotel.Name = dto.Name;
             newHotel.Address = dto.Address;
 
-           //var last = hotels.LastOrDefault();
-
-           // if (last == null)
-           // {
-           //     newHotel.Id = 0;
-           // }
-           // else
-           // {
-           //     newHotel.Id = last.Id + 1;
-           // }
-
             hotels.Add(newHotel);
 
-            //dataContext.SaveChanges();
 
             dto.Id = newHotel.Id;
             dataContext.SaveChanges();
