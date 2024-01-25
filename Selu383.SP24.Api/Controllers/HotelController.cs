@@ -83,7 +83,7 @@ namespace Selu383.SP24.Api.Controllers
 
             dataContext.SaveChanges();
             
-            return new ObjectResult(newHotel) { StatusCode = StatusCodes.Status201Created };
+            return CreatedAtAction(nameof(HotelGetById), new { id = newHotel.Id }, newHotel);
 
         }
 
