@@ -25,46 +25,65 @@ namespace Selu383.SP24.Api.Controllers
 
         [HttpGet]
         [Route("{Id}")]
-        public ActionResult<Hotel> HotelGetById(int Id)
-        {
-            var Hotel = hotels.FirstOrDefault(x => x.Id == Id);
+        public ActionResult<HotelDto> HotelGetById(int Id)
+
+        {   var Hotel = hotels.FirstOrDefault(x => x.Id == Id);
             if (Hotel == null)
             {
                 return NotFound();
             }
-            return Hotel;
+
+            var dto = new HotelDto() {
+                Id = Hotel.Id,
+                Name = Hotel.Name,
+                Address = Hotel.Address,
+            };
+            
+            return dto;
         }
 
         [HttpGet]
-        public IEnumerable<Hotel> HotelGetAll()
+        public IEnumerable<HotelDto> HotelGetAll()
         {
-            return hotels;
+            var dtos = new List<HotelDto>();
+
+            foreach (var hotel in hotels)
+            {
+                var dto = new HotelDto()
+                {
+                    Id = hotel.Id,
+                    Name = hotel.Name,
+                    Address = hotel.Address,
+                };
+                dtos.Add(dto);
+            }
+            return dtos;
         }
 
         [HttpPost]
-        public ActionResult<HotelDto> HotelCreate(HotelDto dto)
+        public ActionResult<HotelDto> HotelCreate(HotelCreateDto dtoToCreate)
         {
 
-            if ((dto.Name.Length > 120) || (dto.Name.Length == 0)) { 
+            if ((dtoToCreate.Name.Length > 120) || (dtoToCreate.Name.Length == 0)) { 
                 return BadRequest();
             }
 
-            if (dto.Address.Length == 0) {
+            if (dtoToCreate.Address.Length == 0) {
                 return BadRequest();
             }
 
 
-            var newHotel = new Hotel();
-            newHotel.Name = dto.Name;
-            newHotel.Address = dto.Address;
+            var newHotel = new Hotel() { 
+                Name = dtoToCreate.Name,
+                Address = dtoToCreate.Address
+            };
+
 
             hotels.Add(newHotel);
 
-
-            dto.Id = newHotel.Id;
             dataContext.SaveChanges();
-
-            return new ObjectResult(dto) { StatusCode = StatusCodes.Status201Created };
+            
+            return new ObjectResult(newHotel) { StatusCode = StatusCodes.Status201Created };
 
         }
 
