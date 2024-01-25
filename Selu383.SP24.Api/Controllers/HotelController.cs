@@ -11,7 +11,6 @@ namespace Selu383.SP24.Api.Controllers
     [Route("/api/hotels")]
     public class HotelController : ControllerBase
     {
-        //static List<Hotel> hotels = new List<Hotel>();
 
         private readonly DbSet<Hotel> hotels;
         private readonly DataContext dataContext;
