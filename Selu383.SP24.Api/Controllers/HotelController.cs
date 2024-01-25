@@ -11,24 +11,24 @@ namespace Selu383.SP24.Api.Controllers
     [Route("/api/hotels")]
     public class HotelController : ControllerBase
     {
-        static List<Hotel> HotelsList = new List<Hotel>();
+        //static List<Hotel> hotels = new List<Hotel>();
 
-        //private readonly DbSet<Hotel> hotels;
-        //private readonly DataContext dataContext;
-        //private readonly ILogger<HotelController> _logger;
+        private readonly DbSet<Hotel> hotels;
+        private readonly DataContext dataContext;
+        private readonly ILogger<HotelController> _logger;
 
-        //public HotelController(DbSet<Hotel> hotels, DataContext dataContext, ILogger<HotelController> logger)
-        //{
-        //    this.hotels = hotels;
-        //    this.dataContext = dataContext;
-        //    _logger = logger;
-        //}
+        public HotelController(DataContext dataContext, ILogger<HotelController> logger)
+        {
+            this.dataContext = dataContext;
+            _logger = logger;
+            hotels = dataContext.Hotels;
+        }
 
         [HttpGet]
         [Route("{Id}")]
         public ActionResult<Hotel> HotelGetById(int Id)
         {
-            var Hotel = HotelsList.FirstOrDefault(x => x.Id == Id);
+            var Hotel = hotels.FirstOrDefault(x => x.Id == Id);
             if (Hotel == null)
             {
                 return NotFound();
@@ -39,7 +39,7 @@ namespace Selu383.SP24.Api.Controllers
         [HttpGet]
         public IEnumerable<Hotel> HotelGetAll()
         {
-            return HotelsList;
+            return hotels;
         }
 
         [HttpPost]
@@ -59,22 +59,23 @@ namespace Selu383.SP24.Api.Controllers
             newHotel.Name = dto.Name;
             newHotel.Address = dto.Address;
 
-           var last = HotelsList.LastOrDefault();
+           //var last = hotels.LastOrDefault();
 
-            if (last == null)
-            {
-                newHotel.Id = 0;
-            }
-            else
-            {
-                newHotel.Id = last.Id + 1;
-            }
+           // if (last == null)
+           // {
+           //     newHotel.Id = 0;
+           // }
+           // else
+           // {
+           //     newHotel.Id = last.Id + 1;
+           // }
 
-            HotelsList.Add(newHotel);
+            hotels.Add(newHotel);
 
             //dataContext.SaveChanges();
 
             dto.Id = newHotel.Id;
+            dataContext.SaveChanges();
 
             return new ObjectResult(dto) { StatusCode = StatusCodes.Status201Created };
 
@@ -84,13 +85,13 @@ namespace Selu383.SP24.Api.Controllers
         [Route("{Id}")]
         public ActionResult<HotelDto> HotelDelete(int Id)
         {
-            var HotelToRemove = HotelsList.FirstOrDefault(x => x.Id == Id);
+            var HotelToRemove = hotels.FirstOrDefault(x => x.Id == Id);
             if (HotelToRemove == null)
             {
                 return NotFound();
             }
 
-            HotelsList.Remove(HotelToRemove);
+            hotels.Remove(HotelToRemove);
 
             HotelDto dto = new HotelDto() { 
                 Id = HotelToRemove.Id, 
@@ -98,7 +99,7 @@ namespace Selu383.SP24.Api.Controllers
                 Address = HotelToRemove.Address 
             };
 
-
+            dataContext.SaveChanges();
             return dto;
         }
 
@@ -118,7 +119,7 @@ namespace Selu383.SP24.Api.Controllers
             }
 
 
-            var Hotel = HotelsList.FirstOrDefault(x => x.Id == Id);
+            var Hotel = hotels.FirstOrDefault(x => x.Id == Id);
             if (Hotel == null)
             {
                 return NotFound();
@@ -130,6 +131,7 @@ namespace Selu383.SP24.Api.Controllers
             
 
             dto.Id = Id;
+            dataContext.SaveChanges();
             return dto;
 
         }
