@@ -111,7 +111,7 @@ namespace Selu383.SP24.Api.Controllers
 
         [HttpPut]
         [Route("{Id}")]
-        public ActionResult<HotelDto> HotelChange(HotelDto dto, int Id)
+        public ActionResult<HotelDto> HotelChange(HotelUpdateDto dto, int Id)
         {
 
             if ((dto.Name.Length > 120) || (dto.Name.Length == 0))
@@ -135,10 +135,14 @@ namespace Selu383.SP24.Api.Controllers
             Hotel.Address = dto.Address;
 
             
-
-            dto.Id = Id;
             dataContext.SaveChanges();
-            return dto;
+
+            return new HotelDto() { 
+                Id = Hotel.Id,
+                Name = Hotel.Name,
+                Address = Hotel.Address,
+            
+            };
 
         }
     }
