@@ -19,13 +19,13 @@ namespace Selu383.SP24.Api.Entities
         public string Address { get; set; } = string.Empty;
     }
 
-    public class CreateDto
+    public class HotelCreateDto
     {
         public string Name { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
     }
 
-    public class UpdateDto
+    public class HotelUpdateDto
     {
         public string Name { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
