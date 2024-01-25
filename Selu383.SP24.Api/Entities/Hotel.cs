@@ -19,5 +19,17 @@ namespace Selu383.SP24.Api.Entities
         public string Address { get; set; } = string.Empty;
     }
 
+    public class CreateDto
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
+    }
+
+    public class UpdateDto
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
+    }
+
 
 }
