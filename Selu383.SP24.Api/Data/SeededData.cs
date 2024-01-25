@@ -29,6 +29,11 @@ public static class SeedData
                 {
                     Name = "Quality Inn Hammond",
                     Address = "2001 SW Railroad Ave, Hammond, LA 70403"
+                },
+                new Hotel
+                {
+                    Name = "Econo Lodge Hammond",
+                    Address = "408 Westin Oaks Dr Building A, Hammond, LA 70403"
                 }
             );
             context.SaveChanges();
